@@ -1,29 +1,46 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-  </div>
+    <div id="app">
+		<Table />
+    </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import Table from '@/components/Table.vue';
+import { mapActions } from 'vuex';
+import { CHECK_ITEM_LOCAL_STORAGE_ACTION } from './store/types';
 
 export default Vue.extend({
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+	name: 'App',
+	
+	components: {
+		Table
+	},
+
+	created() {
+		this.checkItemsFromLocalStore();
+	},
+
+	methods: {
+		...mapActions({
+			checkItemsFromLocalStore: CHECK_ITEM_LOCAL_STORAGE_ACTION
+		})
+	}
 });
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+@import '@/assets/variables.scss';
+
+#app{
+	min-width: 100%;
+	overflow-x: hidden;
+	width: 100%;
+	height: 100%;
+	min-height: 100vh;
+	background: $pageBgColor;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 </style>
